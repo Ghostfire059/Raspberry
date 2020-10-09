@@ -1,5 +1,4 @@
 import RPi.GPIO as GPIO
-import pygame
 from random import randint
 from time import sleep
 
@@ -38,7 +37,7 @@ def setup():
     GPIO.output(YELLOW_LED, GPIO.LOW)
     GPIO.output(GREEN_LED, GPIO.LOW)
     GPIO.output(BLUE_LED, GPIO.LOW)
-    
+
 ##### addLight()
 ##### returns the PINNUMBER of a random light
 #####     return PINNUMBER
@@ -55,7 +54,7 @@ def addLight():
         return YELLOW_LED
     print("Error on rand")
     exit()
-    
+
 ##### prints "cpt" args and light up the 4 LEDs for 1 sec
 def close(cpt,buzz):
     print("Score :")
@@ -141,7 +140,7 @@ def main():
     buzz=GPIO.PWM(BUZZER,1)
     while(not isGameOver):
         simon.append(addLight())
-        
+
         ##### light on the game's lights
         for light in simon:
             GPIO.output(light, GPIO.HIGH)
@@ -158,7 +157,7 @@ def main():
             buzz.stop()
             GPIO.output(light, GPIO.LOW)
             sleep(waitingTime)
-            
+
         ##### verify that the button pressed correspond to the light's sequence
         for light in simon:
             button = -1
@@ -184,5 +183,5 @@ def main():
                 isGameOver=True
                 close(cpt,buzz)
         cpt,waitingTime,sleepingTime = newStep(cpt,waitingTime,sleepingTime)
-        
+
 main()
