@@ -1,36 +1,36 @@
-import os
-import package
+from tkinter import *
 from package.Library import library
+from PIL import ImageTk, Image
 
-ISBN = "9782355927416"
-lib = library.library("test")
-print(lib.getName())
-d_game = lib.getSerie("D-game")
-patate = lib.getSerie("patate")
-patate.setTitle("cornichon")
-b = d_game.getBook(ISBN)
-b.downloadCover()
-b2 = patate.getBook(ISBN)
-#b.rename("Darwin's Game")
-print(lib)
+def printcoucou():
+    print("coucou")
+
+#Créer la fenêtre
+window = Tk()
+width = window.winfo_screenwidth()
+height = window.winfo_screenheight()
+window.title("Bibliothèque RPi")
+window.maxsize(width, height)
+window.minsize(480,360)
 
 
+l = library.library("test")
+s = l.getSerie("D-game")
+print(s)
+b = s.getBook("9782355927416")
+imgPath = b.getPath()[0:len(b.getPath())-7]+".jpg"
+print(imgPath)
 
-"""
-for file in os.listdir(os.path.join(os.getcwd(), "data")):
-    print(file)
 
-print(b1.getISBN())
-s = serie.serie()
-s.addBook(b1)
-print(s.getBook(0).getISBN())
+#Création Image
+iWidth = width/4
+iHeight = height/3
+image = ImageTk.PhotoImage(Image.open(imgPath))  
+canvas = Canvas(window, width=iWidth, height=iHeight, bg='ivory')
+canvas.grid(column=1, row=1)
+canvas.create_image(iWidth/2, iHeight/2, image=image)
+canvas.pack(expand=YES)
 
-util = search.search()
-
-name = util.name(b1.getISBN())
-util.tearDown()
-
-pathprint(name)
-#img = util.cover(b1.getISBN())
-#print(img.get_property("src"))
-"""
+#Afficher la fenêtre
+window.config(background='ivory', width=width, height=height)
+window.mainloop()

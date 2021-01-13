@@ -133,7 +133,8 @@ class serie:
     def __str__(self):
         string = self.__title+".zubluk\n"
         for file in os.listdir(self.__path):
-            string+="\t"+file+"\n"
+            if(file[13:len(file)]==".zubluk"):
+                string+="\t"+file+"\n"
         return string
 
 class library:
